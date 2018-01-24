@@ -1,9 +1,4 @@
-package main
-
-import (
-	"crypto/aes"
-	"io/ioutil"
-)
+package crypto
 
 func hashCode(str string) int {
 	var hash int32
@@ -48,31 +43,4 @@ func generateKey(iv int) []byte {
 	}
 
 	return key[:]
-}
-
-func decrypt(source, dest, ourID, theirID string) error {
-	iv := hashCode(ourID + theirID)
-	key := generateKey(iv)
-
-	cipher, err := aes.NewCipher(key)
-	if err != nil {
-		return err
-	}
-	blockSize := cipher.BlockSize()
-
-	ciphertext, err := ioutil.ReadFile(source)
-	if err != nil {
-		return err
-	}
-	length := len(ciphertext)
-
-	plaintext := make([]byte, length)
-
-	for i := 0; i < length; i += blockSize {
-		cipher.Decrypt(plaintext[i:i+blockSize], ciphertext[i:i+blockSize])
-	}
-
-	err = ioutil.WriteFile(dest, plaintext, 0644)
-
-	return err
 }

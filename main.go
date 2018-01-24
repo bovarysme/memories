@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"log"
+
+	"github.com/bovarysme/memories/crypto"
 )
 
 var source, dest, ourID, theirID string
@@ -27,7 +29,7 @@ func main() {
 	}
 
 	log.Printf("Decrypting '%s' to '%s'\n", source, dest)
-	err := decrypt(source, dest, ourID, theirID)
+	err := crypto.Decrypt(source, dest, ourID, theirID)
 	if err != nil {
 		log.Fatal(err)
 	}
