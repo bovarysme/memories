@@ -4,8 +4,8 @@ import (
 	"testing"
 )
 
-func BenchmarkGenerateKey(b *testing.B) {
+func BenchmarkDeriveKey(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		generateKey(-1067048330)
+		deriveKey(-1067048330)
 	}
 }

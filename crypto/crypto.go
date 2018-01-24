@@ -9,7 +9,7 @@ func hashCode(str string) int {
 	return int(hash)
 }
 
-func generateKey(iv int) []byte {
+func deriveKey(iv int) []byte {
 	const length = 16
 	var key [length]byte
 	var pad [length]int8

@@ -76,7 +76,7 @@ func Decrypt(source, dest, ourID, theirID string) error {
 	defer writer.Close()
 
 	iv := hashCode(ourID + theirID)
-	key := generateKey(iv)
+	key := deriveKey(iv)
 
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
