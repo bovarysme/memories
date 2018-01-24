@@ -16,8 +16,8 @@ func hashCode(str string) int {
 
 func generateKey(iv int) []byte {
 	const length = 16
-	var pad [length]int8
 	var key [length]byte
+	var pad [length]int8
 
 	pad[0] = int8(iv)
 	pad[1] = pad[0] - 71
@@ -44,11 +44,7 @@ func generateKey(iv int) []byte {
 		}
 
 		value = -value - 2
-		pad[index] = int8(value)
-	}
-
-	for i := 0; i < length; i++ {
-		key[i] = byte(pad[i])
+		key[index] = byte(value)
 	}
 
 	return key[:]
