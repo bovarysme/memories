@@ -3,6 +3,7 @@ package crypto
 import (
 	"bytes"
 	"crypto/aes"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -60,6 +61,12 @@ func Bruteforce(source string) error {
 			log.Printf("IV recovered: %d\n", iv)
 
 			err = writeKey(source, key)
+			if err != nil {
+				return err
+			}
+
+			dest := fmt.Sprintf("%s.sqlite", source)
+			err = decrypt(source, dest, key)
 			if err != nil {
 				return err
 			}

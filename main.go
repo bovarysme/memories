@@ -42,7 +42,6 @@ func cmdDecrypt() error {
 		dest = fmt.Sprintf("%s.sqlite", source)
 	}
 
-	log.Printf("Decrypting '%s' to '%s'\n", source, dest)
 	err := crypto.Decrypt(source, dest, ourID, theirID)
 
 	return err

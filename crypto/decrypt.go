@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -17,7 +18,7 @@ type decryptor struct {
 	cipher cipher.Block
 }
 
-func (d *decryptor) decrypt(length int) error {
+func (d *decryptor) decryptChunk(length int) error {
 	ciphertext := make([]byte, length)
 	_, err := io.ReadFull(d.r, ciphertext)
 	if err != nil {
@@ -62,7 +63,9 @@ func readChunkLengths(source string) ([]int, error) {
 	return lengths, nil
 }
 
-func Decrypt(source, dest, ourID, theirID string) error {
+func decrypt(source, dest string, key []byte) error {
+	log.Printf("Decrypting '%s' to '%s'\n", source, dest)
+
 	reader, err := os.Open(source)
 	if err != nil {
 		return err
@@ -74,9 +77,6 @@ func Decrypt(source, dest, ourID, theirID string) error {
 		return err
 	}
 	defer writer.Close()
-
-	iv := hashCode(ourID + theirID)
-	key := deriveKey(iv)
 
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
@@ -95,11 +95,20 @@ func Decrypt(source, dest, ourID, theirID string) error {
 	}
 
 	for _, length := range lengths {
-		err = d.decrypt(length)
+		err = d.decryptChunk(length)
 		if err != nil {
 			return err
 		}
 	}
 
 	return nil
+}
+
+func Decrypt(source, dest, ourID, theirID string) error {
+	iv := hashCode(ourID + theirID)
+	key := deriveKey(iv)
+
+	err := decrypt(source, dest, key)
+
+	return err
 }
