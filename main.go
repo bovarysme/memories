@@ -16,7 +16,7 @@ func init() {
 	flag.BoolVar(&bruteforce, "bruteforce", false, "perform a key-recovery attack on the input file")
 	flag.StringVar(&source, "source", "", "path to the input file (e.g. chat-1067048330)")
 	flag.StringVar(&dest, "dest", "", "path to the output file")
-	flag.StringVar(&ourID, "oid", "", "your MID (e.g. u529a3d0285ef0aa49e713aeac1d2bafb)")
+	flag.StringVar(&ourID, "oid", "", "your MID (e.g. u61726520762e206375746520f09f929c)")
 	flag.StringVar(&theirID, "tid", "", "your chat partner's MID")
 
 	flag.Parse()
