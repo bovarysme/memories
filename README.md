@@ -59,6 +59,8 @@ is expected to be `SQLite format 3\x00`).
 Using this attack, I was able to recover a key in only 35 minutes on a 7
 years old laptop (i5-2540M @ 2.60GHz).
 
+![Successful key-recovery](docs/hackergirl.png)
+
 ### Possible improvements
 
 The KDF has collisions (e.g. the IVs -1147136985, -1147146969, -1147157209...
