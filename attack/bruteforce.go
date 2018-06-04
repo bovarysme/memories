@@ -2,7 +2,6 @@ package attack
 
 import (
 	"bytes"
-	"crypto/aes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -10,6 +9,8 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+
+	"github.com/bovarysme/memories/crypto/aes"
 )
 
 func readCiphertext(source string) ([]byte, error) {
