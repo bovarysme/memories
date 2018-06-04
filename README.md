@@ -21,8 +21,7 @@ partner's):
 ./memories -source <path to the encrypted chat db> -oid <your MID> -tid <your chat partner's MID>
 ```
 
-Recover the key of an encrypted chat database and decrypt it (may take up to a
-couple of hours):
+Recover the key of an encrypted chat database and decrypt it:
 ```
 ./memories -bruteforce -source <path to the encrypted chat db>
 ```
@@ -78,4 +77,6 @@ improved.
 
 ## License
 
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the MIT license, except for the
+contents of the `crypto` directory which are licensed under the
+[Go BSD-style license](crypto/LICENSE).
