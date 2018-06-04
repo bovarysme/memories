@@ -4,7 +4,8 @@ A key-recovery attack for LINE for Android's chat backup encryption.
 
 LINE for Android has a feature to back up individual chats to a ZIP file. Each
 backup contains images in plaintext and a weakly encrypted chat database, which
-can be recovered in a couple of hours at most.
+can be recovered in fifteen minutes at most on a CPU supporting
+[AES-NI](https://en.wikipedia.org/wiki/AES_instruction_set).
 
 ## Usage
 
@@ -56,7 +57,7 @@ A simple way to search the key space is to derive a key from every possible IV,
 and use it to try to decrypt the first 16-byte block of the ciphertext (which
 is expected to be `SQLite format 3\x00`).
 
-Using this attack, I was able to recover a key in only 35 minutes on a 7
+Using this attack, I was able to recover a key in less than 4 minutes on a 7
 years old laptop (i5-2540M @ 2.60GHz).
 
 ![Successful key-recovery](docs/hackergirl.png)
@@ -69,7 +70,7 @@ improved.
 
 ### Lessons learned
 
-- Do not use 32-bit IVs (?).
+- Do not use 32-bit IVs.
 - Do not use `hashCode()` as a cryptographic hash function.
 - Do not implement your own KDF.
 - Use a slow KDF to prevent brute-force attacks.
