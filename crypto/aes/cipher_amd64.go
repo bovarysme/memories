@@ -21,21 +21,21 @@ type aesCipherAsm struct {
 
 var useAsm = cipherhw.AESGCMSupport()
 
+const (
+	keyLength = 16
+	n         = keyLength + 28
+)
+
+var c = aesCipherAsm{aesCipher{make([]uint32, n), make([]uint32, n)}}
+
 func newCipher(key []byte) (cipher.Block, error) {
 	if !useAsm {
 		return newCipherGeneric(key)
 	}
-	n := len(key) + 28
-	c := aesCipherAsm{aesCipher{make([]uint32, n), make([]uint32, n)}}
-	rounds := 10
-	switch len(key) {
-	case 128 / 8:
-		rounds = 10
-	case 192 / 8:
-		rounds = 12
-	case 256 / 8:
-		rounds = 14
+	if len(key) != keyLength {
+		panic("crypto/aes: incorrect key length")
 	}
+	rounds := 10
 	expandKeyAsm(rounds, &key[0], &c.enc[0], &c.dec[0])
 	if hasGCMAsm() {
 		return &aesCipherGCM{c}, nil
