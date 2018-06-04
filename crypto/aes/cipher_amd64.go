@@ -37,9 +37,6 @@ func newCipher(key []byte) (cipher.Block, error) {
 	}
 	rounds := 10
 	expandKeyAsm(rounds, &key[0], &c.enc[0], &c.dec[0])
-	if hasGCMAsm() {
-		return &aesCipherGCM{c}, nil
-	}
 
 	return &c, nil
 }
