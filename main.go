@@ -8,7 +8,7 @@ import (
 	"os"
 	"runtime/pprof"
 
-	"github.com/bovarysme/memories/crypto"
+	"github.com/bovarysme/memories/attack"
 )
 
 var bruteforce bool
@@ -32,7 +32,7 @@ func cmdBruteforce() error {
 	}
 
 	log.Printf("Performing a key-recovery attack on '%s'", source)
-	err := crypto.Bruteforce(source)
+	err := attack.Bruteforce(source)
 
 	return err
 }
@@ -46,7 +46,7 @@ func cmdDecrypt() error {
 		dest = fmt.Sprintf("%s.sqlite", source)
 	}
 
-	err := crypto.Decrypt(source, dest, ourID, theirID)
+	err := attack.Decrypt(source, dest, ourID, theirID)
 
 	return err
 }

@@ -1,4 +1,4 @@
-package crypto
+package attack
 
 func hashCode(str string) int {
 	var hash int32
